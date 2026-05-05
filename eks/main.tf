@@ -21,6 +21,11 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
+resource "aws_iam_role_policy_attachment" "node_cluster_policy" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+}
+
 # ---------------------------
 # EKS Cluster
 # ---------------------------
@@ -91,6 +96,7 @@ resource "aws_eks_node_group" "nodes" {
   depends_on = [
     aws_iam_role_policy_attachment.node_worker,
     aws_iam_role_policy_attachment.node_cni,
-    aws_iam_role_policy_attachment.node_ecr
+    aws_iam_role_policy_attachment.node_ecr,
+    aws_iam_role_policy_attachment.node_cluster_policy
   ]
 }
