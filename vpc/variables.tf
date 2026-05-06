@@ -9,3 +9,9 @@ variable "public_subnets" {
 variable "private_subnets" {
   default = ["10.0.3.0/24", "10.0.4.0/24"]
 }
+
+variable "cluster_name" {
+  description = "Name of the EKS cluster (used for subnet tagging)"
+  type        = string
+  default     = "my-eks-cluster"
+}
